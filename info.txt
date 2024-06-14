@@ -1,0 +1,130 @@
+1. Создать проект
+
+composer create-project laravel/laravel example-app
+
+2. .env настройка подключения к БД. Сделать первую миграцию БД
+
+php artisan migrate 
+
+3. Создаем контроллер главной страницы
+
+php artisan make:controller Main/MainController
+
+4. локализация
+
+Создать глобальные функции 
+1. создать файл app/helpers/helpers.php
+2. описать функции
+3. в файле composer.json добавить
+ "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
+    },
+
+выполнить команду composer dump-autoload
+
+
+php artisan lang:publish
+
+В файле /config/app.php создаем массив языков  'available_locales' => ['uk', 'ru', 'en'],
+
+Создаем каталог/файл app/Services/Localization/Localization.php
+
+в файле создаем класс для изменения локализации
+
+Теперь нужно создать сервис провайдер, в котором зарегистрировать новый класс
+
+php artisan make:provider LocalizationServiceProvider
+
+После создания провайдера в нем регистрируем созданный класс Localization.php
+
+далее нужно в роутах создать группу с префиксами
+
+Route::group(
+    [
+        'prefix' => Localization::setLocale()
+    ],
+    function () {
+        // ? main
+        Route::get('/', [MainController::class, 'index'])->name('main');
+    }
+);
+
+
+
+
+
+Создание административной панели
+
+1.  Создаем контроллеры Auth:
+    php artisan make:controller Admin/Auth/RegisterController
+
+    php artisan make:controller Admin/Auth/LoginController   
+
+    php artisan make:controller Admin/AdminPanelController
+
+
+
+Добавление роли в таблицу User
+
+делаем миграцию добавление колонки в существующую таблицу
+php artisan make:migration add_column_role_to_users_table
+
+добавить миграцию
+php artisan migrate
+
+откатить миграцию
+php artisan migrate:rollback
+
+
+новый middleware для защиты защищенных маршрутов если ты не админ или супер админ
+
+php artisan make:middleware AdminMiddleware
+
+public function handle(Request $request, Closure $next): Response
+    {
+
+        // dd(auth()->user()->role);
+
+        if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin') {
+
+            return $next($request);
+        }
+
+
+        return redirect()->route('admin.home');
+
+        // return $next($request);
+    }
+
+
+добавляем к группе маршрутов
+
+Route::prefix('admin')->middleware('auth', AdminMiddleware::class)->group(function () {
+    Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+});
+
+Route::prefix('admin')->middleware('auth', SuperAdminMiddleware::class)->group(function () {
+    // ? users
+    Route::get('/users', [UserController::class, 'index'])->name('users.home');
+});
+
+
+
+***
+Policy
+
+php artisan make:policy AdminPolicy -m User
+
+
+
+if ($request->user()->cannot('view', auth()->user())) {
+            // abort(403);
+        }
