@@ -17,11 +17,11 @@ class RegisterController extends Controller
     }
 
     // ? comment
-    // public function index()
-    // {
+    public function index()
+    {
 
-    //     return view('admin.auth.newRegister');
-    // }
+        return view('admin.auth.newRegister');
+    }
 
 
     public function store(Request $request)
