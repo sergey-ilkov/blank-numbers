@@ -100,5 +100,5 @@ Route::prefix('blankadmin')->middleware('auth', SuperAdminMiddleware::class)->gr
 });
 
 // ? comment
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.newstore');
+// Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+// Route::post('/register', [RegisterController::class, 'store'])->name('register.newstore');
