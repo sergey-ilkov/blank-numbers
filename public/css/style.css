@@ -147,7 +147,6 @@ body {
     background: var(--bg-color);
 }
 body.fixed {
-    position: relative;
     overflow: hidden;
 }
 
