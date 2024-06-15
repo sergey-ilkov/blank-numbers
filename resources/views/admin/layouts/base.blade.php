@@ -17,11 +17,11 @@
 
 
     @stack('css')
-    <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin.css') . '?v=' . rand(10, 1000)  }}">
 
 
     @stack('js')
-    <script src="{{ asset('js/admin/admin.js') }}" defer></script>
+    <script src="{{ asset('js/admin/admin.js') . '?v=' . rand(10, 1000)  }}" defer></script>
 
 </head>
 
