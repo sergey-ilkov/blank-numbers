@@ -2119,7 +2119,7 @@ class Celebrities {
 
             if (e.target.closest('.details-item')) {
 
-                const id = e.target.closest('.details-item').getAttribute('data-serch-details');
+                const id = e.target.closest('.details-item').getAttribute('data-search-details');
 
                 if (id) {
 
@@ -2154,7 +2154,6 @@ class Celebrities {
 
             // ? close modal
             if (this.modalDetails.classList.contains('open') && !e.target.closest('.modal-details-body')) {
-                console.log('close modal body');
                 divBody.classList.remove('fixed');
                 correctionWrapperMargin(0);
                 this.modalDetails.classList.remove('open');
@@ -2285,7 +2284,7 @@ class Celebrities {
             const data = this.objData.data[i];
             this.htmlCurrent += `
                 <li>
-                    <span class="details-item" data-serch-details="${data.id}">${data.surname} ${data.name}</span>
+                    <span class="details-item" data-search-details="${data.id}">${data.surname} ${data.name}</span>
                 </li>
             `;
         }
@@ -2342,7 +2341,7 @@ class Celebrities {
 
                 this.htmlCurrent += `
                     <li>
-                        <span class="details-item" data-serch-details="${data.id}">${data.surname} ${data.name}</span>
+                        <span class="details-item" data-search-details="${data.id}">${data.surname} ${data.name}</span>
                     </li>
                 `;
             }
@@ -2459,7 +2458,7 @@ class Celebrities {
                     data.connections.forEach(connection => {
                         this.htmlCurrent += `
                             <li>
-                                <span class="details-item" data-serch-details="${connection.id}">
+                                <span class="details-item" data-search-details="${connection.id}">
                                     ${connection.name} ${connection.surname}
                                 </span>
                             </li>                        
