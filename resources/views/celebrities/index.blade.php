@@ -43,7 +43,7 @@
                     <div class="celebrities-search">
 
                         <input id="input-search" class="celebrities-search-input" type="text"
-                            placeholder="{{ __('translations.celebrities.filter.search') }}" autocomplete="off">
+                            placeholder="{{ __('translations.celebrities.filter.search-placeholder') }}" autocomplete="off" name="surname">
                         <button id="btn-search" class="btn btn-4 btn-search">{{ __('translations.celebrities.buttons.search') }}</button>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                             <div class="filter-col filter extra_number_two">
                                 <button class="filter__btn">
                                     <span class="filter__btn-text">
-                                        {{ __('ДЧ 2') }}
+                                        {{ __('ЧЖШ') }}
                                     </span>
 
                                     <div class="filter-text"></div>
@@ -236,7 +236,7 @@
                             <div class="filter-col filter extra_number_four">
                                 <button class="filter__btn">
                                     <span class="filter__btn-text">
-                                        {{ __('ДЧ 4') }}
+                                        {{ __('ЧВТ') }}
                                     </span>
 
                                     <div class="filter-text"></div>
@@ -618,7 +618,7 @@
 
                         <div class="celebrities-request-group">
                             <input id="input-request" class="celebrities-request-input" type="text"
-                                placeholder="{{ __('translations.celebrities.request-input') }}" autocomplete="off">
+                                placeholder="{{ __('translations.celebrities.request-input') }}" autocomplete="off" name="celebrity">
                             <button id="btn-request-send" class="btn-request-send">
                                 {{ __('translations.celebrities.buttons.send')}}
                             </button>

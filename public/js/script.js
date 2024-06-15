@@ -1521,6 +1521,7 @@ window.onload = () => {
     if (pageCelebrities) {
         tlHero.from('.celebrities__title', { x: 100, autoAlpha: 0, duration: 0.4 })
             .fromTo('.celebrities__text', { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.2 })
+            .from('.celebrities__items', { autoAlpha: 0 })
     }
 
     // ? Home page
@@ -1861,6 +1862,8 @@ class Celebrities {
 
         this.sectionCelebrity = sectionCelebrity;
 
+        this.CelebritiesItems = this.sectionCelebrity.querySelector('.celebrities__items');
+
         this.preloaderFilters = this.sectionCelebrity.querySelector('#preloader-filters');
         this.preloaderFiltersBody = this.preloaderFilters.querySelector('.preloader-body');
         this.filters = this.sectionCelebrity.querySelectorAll('.filter');
@@ -2159,7 +2162,6 @@ class Celebrities {
             }
 
             if (e.target.closest('.btn-modal-details-close')) {
-                console.log('close modal click btn-close');
                 divBody.classList.remove('fixed');
                 correctionWrapperMargin(0);
                 this.modalDetails.classList.remove('open');
@@ -2718,7 +2720,8 @@ class Celebrities {
         this.events();
 
         this.htmlCurrent = '';
-        this.preloaderFilters.classList.add('hidden');
+
+        this.CelebritiesItems.classList.add('show');
 
     }
 

@@ -252,7 +252,7 @@ return [
         ],
 
         'filter' => [
-            'search' => 'Пошук за прізвищем',
+            'search-placeholder' => 'Пошук за прізвищем',
             'gender' => 'Стать',
             'genderArray' => [
                 'ж',
@@ -274,6 +274,7 @@ return [
 
             'error-empty' => 'Виберіть значення для фільтра',
 
+            'search' => 'Пошук...',
 
 
         ],

@@ -251,7 +251,7 @@ return [
             'filter' => 'фильтр',
         ],
         'filter' => [
-            'search' => 'Поиск по фамилии',
+            'search-placeholder' => 'Поиск по фамилии',
             'gender' => 'Пол',
             'genderArray' => [
                 'ж',
@@ -272,6 +272,8 @@ return [
             'temperament' => 'Темперамент',
 
             'error-empty' => 'Выберите значения для фильтра',
+
+            'search' => 'Поиск...',
 
         ],
 

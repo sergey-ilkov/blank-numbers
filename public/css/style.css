@@ -1867,6 +1867,7 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     font-weight: 700;
     padding-top: 20px;
     margin-bottom: 30px;
+    font-size: 20px;
 }
 .order-paymant-link {
     display: flex;
@@ -2514,6 +2515,9 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     .svg-test-icon {
         width: calc(24px + 12 * (100vw - 320px) / 780);
         height: calc(24px + 12 * (100vw - 320px) / 780);
+    }
+    .modal-order-result__title {
+        font-size: calc(16px + 4 * (100vw - 320px) / 780);
     }
     /* ? consultations */
     .consultations {
@@ -3259,21 +3263,10 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     display: flex;
     justify-content: center;
 }
-.preloader-filters.hidden {
-    animation: preloader-filter 1s ease forwards;
+.celebrities__items.show .preloader-filters {
+    display: none;
 }
-@keyframes preloader-filter {
-    0% {
-        opacity: 1;
-    }
-    99% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-        display: none;
-    }
-}
+
 .preloader-body {
     display: flex;
     flex-direction: column;
