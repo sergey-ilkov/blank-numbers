@@ -67,7 +67,7 @@
 
                             <x-admin.form-item>
 
-                                <x-admin.label> {{__('Name')}} </x-admin.label>
+                                <x-admin.label> {{__('Title')}} </x-admin.label>
 
                                 <x-admin.input name="title_{{ $language->code }}" value="{{ $occupation['title_'. $language->code ] }}"
                                     style="max-width: 300px" />

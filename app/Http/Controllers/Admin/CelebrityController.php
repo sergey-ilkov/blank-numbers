@@ -166,6 +166,7 @@ class CelebrityController extends Controller
             'day' => 'required|integer|between:1,31',
             'month' => 'required|integer|between:1,12',
             'year' => 'required|integer|min:1',
+            'occupations' => 'required',
         ]);
 
         if ($request->has('published')) {
