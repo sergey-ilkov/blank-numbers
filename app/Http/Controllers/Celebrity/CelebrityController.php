@@ -24,8 +24,8 @@ class CelebrityController extends Controller
 
     public function index()
     {
-        $page = 'celebrities';
 
+        $page = 'celebrities';
 
         return view('celebrities.index', compact('page'));
     }
@@ -50,6 +50,7 @@ class CelebrityController extends Controller
         $occupations = $occupations->map(function ($item) use ($title) {
             return ['id' => $item->id, 'title' => $item->$title];
         });
+
 
         $arrayResponse['occupations'] = $occupations;
 
@@ -152,7 +153,9 @@ class CelebrityController extends Controller
 
             $search = $request->search;
 
-            $celebrities = Celebrity::where("{$surname}", 'like', "{$search}%")->get();
+            $celebrities = Celebrity::where("{$surname}", 'like', "{$search}%")
+                ->where('published', true)
+                ->get();
 
             return CelebrityResource::collection($celebrities);
         }
