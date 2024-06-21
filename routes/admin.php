@@ -98,7 +98,3 @@ Route::prefix('blankadmin')->middleware('auth', SuperAdminMiddleware::class)->gr
     Route::patch('/languages/{id}', [LanguageController::class, 'update'])->name('languages.update');
     Route::delete('/languages/{id}', [LanguageController::class, 'destroy'])->name('languages.destroy');
 });
-
-// ? comment
-// Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-// Route::post('/register', [RegisterController::class, 'store'])->name('register.newstore');

@@ -15,76 +15,15 @@ class CelebrityController extends Controller
 
     public function index()
     {
-        // $celebrities = Celebrity::all();
 
-
-        // $genderStr = ['ж', 'ч'];
-        // $genderStrRu = ['ж', 'м'];
-
-        // foreach ($celebrities as $celebrity) {
-        //     $random = rand(0, 1);
-        //     $gender_uk = $genderStr[$random];
-        //     $gender_ru = $genderStrRu[$random];
-
-        //     $celebrity->update(
-        //         [
-        //             'gender_uk' => $gender_uk,
-        //             'gender_ru' => $gender_ru
-        //         ]
-        //     );
-        // }
-
-        // dd($occupations->random());
-
-        // $genderStr = ['ж', 'ч'];
-        // $genderStrRu = ['ж', 'м'];
-
-        // $random = rand(0, 1);
-        // $gender_uk = $genderStr[$random];
-        // $gender_ru = $genderStrRu[$random];
-
-        // // dd($gender);
-
-        // $celebrities[0]->update(
-        //     ['gender_uk' => $gender_uk],
-        //     ['gender_ru' => $gender_ru],
-        // );
-
-        // dd($celebrities[0]);
-        // ? many to many
-        // $occupations = $request->occupations;
-        // $celebrity->occupations()->attach($occupations);
-
-        // dd($celebrities);
-
-        // ? test get Celebrity and Square
-        // $celebrity = Celebrity::query()->where('id', 2)->first();
-        // $square = $celebrity->square;
-        // dd($square);
-        // $celebrities = Celebrity::all();
         $celebrities = Celebrity::paginate(50);
 
-        // dd($celebrities);
-        // $celebrities = Celebrity::lazy();
-
-        // dd($celebrities);
-
-        // $celebrities = Celebrity::all()->chunk(100);
-
-        // dd($celebrities);
-
-        // $celebrities = Celebrity::chunk(100, function ($celebrities) {
-        //     foreach ($celebrities as $celebrity) {
-        //         return $celebrity;
-        //     }
-        // });
 
         return view('admin.celebrities.index', compact('celebrities'));
     }
 
     public function filter()
     {
-        // $celebrities = Celebrity::orderBy('surname_uk', 'asc')->get();
         $celebrities = Celebrity::orderBy('surname_uk', 'asc')->paginate(50);
 
         return view('admin.celebrities.index', compact('celebrities'));
@@ -120,37 +59,11 @@ class CelebrityController extends Controller
         $languages = Language::all();
 
         return view('admin.celebrities.create', compact('languages'));
-
-        // $occupations = Occupation::all();
-
-        // $occupations = Occupation::orderBy('title_uk', 'asc')->get();
-
-        // $movies = Movie::orderBy('title_uk', 'asc')->get();
-
-        // $celebrities = Celebrity::orderBy('surname_uk', 'asc')->get();
-        // // ? connections
-
-        // $connections = Celebrity::orderBy('surname_uk', 'asc')->get();
-
-
-
-        // return view('admin.celebrities.create', compact('languages', 'occupations', 'movies', 'celebrities', 'connections'));
     }
 
     public function store(Request $request)
     {
 
-
-        // $occupations = $request->occupations;
-
-        // dd($request->movies);
-        // $validationOccupation = request()->validate([
-        //     'occupations' => 'required|array',
-
-        // ]);
-
-        // dd($validationOccupation);
-        // dd($request->all());
 
 
         $validationCelebrity = request()->validate([
@@ -174,8 +87,7 @@ class CelebrityController extends Controller
         } else {
             $validationCelebrity['published'] = false;
         }
-        // dd($request->has('published'));
-        // dd($validationCelebrity);
+
 
 
         // ? add square
@@ -220,7 +132,7 @@ class CelebrityController extends Controller
         ]);
 
 
-        // dd($validationConnections);
+
 
         DB::beginTransaction();
         $celebrity = Celebrity::create($validationCelebrity);
@@ -259,26 +171,15 @@ class CelebrityController extends Controller
 
         // ? square
         $square = $celebrity->square;
-        // dd($square);
-
-        // $occupations = Occupation::all();
-        // $movies = Movie::all();
-        // $celebrities = Celebrity::all();
-        // $occupations = Occupation::orderBy('title_uk', 'asc')->get();
-        // $movies = Movie::orderBy('title_uk', 'asc')->get();
-        // $celebrities = Celebrity::orderBy('surname_uk', 'asc')->get();
-
-        // dd($celebrities[0]->connections[0]->id);
 
         return view('admin.celebrities.edit', compact('languages', 'celebrity', 'square'));
-        // return view('admin.celebrities.edit', compact('languages', 'celebrity', 'square', 'occupations', 'movies', 'celebrities'));
     }
 
     public function update(Request $request, $id)
     {
 
 
-        // dd($request->all());
+
 
         $validationCelebrity = request()->validate([
             'name_uk' => 'required|string',
@@ -389,7 +290,6 @@ class CelebrityController extends Controller
 
 
         $res = $celebrity->destroy($id);
-        // $res = $celebrity->destroy($id);
 
 
         if ($res) {

@@ -51,7 +51,7 @@ class LanguageController extends Controller
 
     public function update(Request $request, $id)
     {
-        // ? Валидация данных
+
         $validated = $request->validate([
 
             'code' => ['required', 'string', 'max:2'],

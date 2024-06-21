@@ -16,12 +16,12 @@ class RegisterController extends Controller
         return view('admin.auth.register');
     }
 
-    // ? comment
-    public function index()
-    {
 
-        return view('admin.auth.newRegister');
-    }
+    // public function index()
+    // {
+
+    //     return view('admin.auth.newRegister');
+    // }
 
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
 
         ]);
-        // dd($request);
+
 
         alert(__('Новий користувач створений!'));
 
