@@ -798,7 +798,6 @@ if (selectCheckboxGroups.length > 0) {
 
 document.addEventListener('trix-before-paste', function (e) {
     if (e.paste.hasOwnProperty('html')) {
-        console.log('trix-before-paste');
         let div = document.createElement("div");
         div.innerHTML = e.paste.html;
         e.paste.html = div.textContent;
