@@ -99,7 +99,7 @@
                                         <x-admin.label> {{__('Description (якщо потрібний абзац натисніть "Enter" два рази)')}}
                                         </x-admin.label>
                                         <x-admin.trix name="description_{{ $language->code }}"
-                                            value="{!! $celebrity['description_' . $language->code ] !!}">
+                                            value="{{ $celebrity['description_' . $language->code ] }}">
 
                                         </x-admin.trix>
 

@@ -801,5 +801,14 @@ document.addEventListener('trix-before-paste', function (e) {
         let div = document.createElement("div");
         div.innerHTML = e.paste.html;
         e.paste.html = div.textContent;
+
+        // e.paste.html = div.textContent.replaceAll('"', "'");
+        // e.paste.html = e.target.innerHTML.replaceAll('"', " \"");
+        // console.log(e.paste.html);
+
     }
 });
+
+// document.addEventListener('trix-change', function (e) {
+//     e.target.innerHTML = e.target.innerHTML.replaceAll('"', "'");
+// });
