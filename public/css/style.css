@@ -3634,6 +3634,7 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     gap: 5px;
 }
 .details-body__item-square {
+    display: flex;
     max-width: 280px;
     width: 100%;
 }
