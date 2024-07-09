@@ -1451,6 +1451,7 @@ body.fixed {
     gap: 40px;
 }
 .footer__item-title {
+    display: block;
     font-size: 16px;
     font-weight: 500;
     color: var(--second-color);

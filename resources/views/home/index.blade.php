@@ -177,7 +177,7 @@
     <div class="container">
         <h2 class="who__title title-h2 title-anim"> {{ __('translations.who.title') }} </h2>
         <div class="who-content">
-            <h5 class="who-content__title title-h5 title-anim"> {{ __('translations.who.title2') }} </h5>
+            <h3 class="who-content__title title-h5 title-anim"> {{ __('translations.who.title2') }} </h3>
             <p class="who-content__desc desc text-anim"> {{ __('translations.who.desc') }} </p>
 
 
@@ -274,7 +274,7 @@
 
             <div class="what__item">
 
-                <h5 class="what__item-title title-h5">{{ $content['title'] }}</h5>
+                <h3 class="what__item-title title-h5">{{ $content['title'] }}</h3>
 
                 <p class="what__item-text text">{{ $content['text'] }}</p>
 
@@ -352,7 +352,7 @@
             @foreach (__('translations.consultations.orders') as $order )
 
             <div class="consultations__card order" data-order-name="{{ $order['name'] }}">
-                <h6 class="consultations__card-title title-h6 order-title">{{ $order['title'] }}</h6>
+                <h3 class="consultations__card-title title-h6 order-title">{{ $order['title'] }}</h3>
 
                 <p class="consultations__card-text text">{{ $order['text'] }}</p>
 
@@ -814,13 +814,13 @@
 
 
                 <div class="crazy-slider-arrows">
-                    <button class="crazy-slider-btn" data-action="prev">
+                    <button class="crazy-slider-btn" data-action="prev" aria-label="button prev">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 7L9 12L14 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     </button>
-                    <button class="crazy-slider-btn" data-action="next">
+                    <button class="crazy-slider-btn" data-action="next" aria-label="button next">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 17L15 12L10 7" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
