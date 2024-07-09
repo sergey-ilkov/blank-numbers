@@ -47,8 +47,8 @@
 
                                                     <td style="padding-bottom:20px">
 
-                                                        <img src="https://sergeyilkov.com/development/blank/assets/images/logo.png"
-                                                            height="70px" alt="" title="" data-bit="iit">
+                                                        <img src="https://blank-numbers.com/images/logo.png" height="70px" alt="" title=""
+                                                            data-bit="iit">
 
                                                     </td>
 
