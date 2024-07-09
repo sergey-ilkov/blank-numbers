@@ -43,11 +43,11 @@
     }
 
     .preloader.start .preloader-circle {
-        animation: anim-preloader 4s ease 1s forwards;
+        animation: anim-preloader 2s ease 0s forwards;
     }
 
     .preloader.start {
-        animation: off-preloader 0s ease 2s forwards;
+        animation: off-preloader 0s ease 1s forwards;
     }
 
     @keyframes anim-preloader {
@@ -79,7 +79,7 @@
 
     @media(max-width: 900px) {
         .preloader.start .preloader-circle {
-            animation: anim-preloader 2s ease 1s forwards;
+            animation: anim-preloader 2s ease 0s forwards;
         }
     }
 
@@ -92,7 +92,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         transform-origin: center;
-        animation: square-preloader 1s ease 0.1s infinite;
+        animation: square-preloader 1s ease 0s infinite;
     }
 
     .square::before {
@@ -119,7 +119,7 @@
     }
 
     .preloader.start .square {
-        animation: square-preloader 1s ease infinite, soff-quare-preloader 0.5s ease 0.8s forwards;
+        animation: square-preloader 1s ease infinite, off-quare-preloader 0.2s ease 0s forwards;
 
     }
 
@@ -140,7 +140,7 @@
         }
     }
 
-    @keyframes soff-quare-preloader {
+    @keyframes off-quare-preloader {
         0% {
             opacity: 1;
         }

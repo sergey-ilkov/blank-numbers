@@ -1437,33 +1437,27 @@ if (divSquarePythagoras) {
 
 
 // ? lazy-images
-const optionsLazyImages = {
-    root: null,
-    rootMargin: '500px',
-    threshold: 0
+
+const imageObserver = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.src = entry.target.dataset.src;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+    rootMargin: "100px 0px 0px"
+}
+);
+
+const lazyLoadImages = document.querySelectorAll('.lazy-image');
+if (lazyLoadImages.length > 0) {
+    lazyLoadImages.forEach(image => imageObserver.observe(image));
 }
 
-const observerLazyImages = new IntersectionObserver(callbackLazyImages, optionsLazyImages);
 
-const lazyImages = document.querySelectorAll('.lazy-image');
 
-if (lazyImages.length > 0) {
-
-    lazyImages.forEach(lazyImage => {
-        observerLazyImages.observe(lazyImage);
-    })
-}
-
-function callbackLazyImages(entries, observer) {
-    entries.forEach((entry) => {
-        const target = entry.target;
-        const dataSrc = target.getAttribute('data-src');
-        if (entry.isIntersecting) {
-            target.setAttribute('src', dataSrc);
-            observer.unobserve(target);
-        }
-    })
-}
 
 
 // ? GSAP animation
@@ -1490,7 +1484,7 @@ window.onload = () => {
 
     let tlHero = gsap.timeline({
 
-        delay: 2
+        delay: 1
     });
 
 
