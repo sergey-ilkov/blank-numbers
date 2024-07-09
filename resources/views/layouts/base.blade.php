@@ -9,6 +9,7 @@
     @include('includes.preloder')
 
 
+
     <link rel="stylesheet" href="{{ asset('css/style.css') . '?v=' . rand(10, 1000) }}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"

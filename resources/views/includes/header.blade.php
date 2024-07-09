@@ -43,7 +43,9 @@
 
             </nav>
 
-            <button id="burger-menu" class="burger-menu" type="button"><span></span><span></span><span></span></button>
+            <button id="burger-menu" class="burger-menu" type="button" aria-label="burger menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </div>
 </header>

@@ -373,7 +373,7 @@
         <div class="consultations-info">
 
             <div class="consultations-info__box">
-                <h6 class="consultations-info__box-title title-h6">{{ __('translations.consultations.infoConsultations.title') }}</h6>
+                <h3 class="consultations-info__box-title title-h6">{{ __('translations.consultations.infoConsultations.title') }}</h3>
 
                 <ul class="consultations-info__list">
                     <li class="consultations-info__item">
@@ -395,7 +395,7 @@
             </div>
 
             <div class="consultations-info__box">
-                <h6 class="consultations-info__box-title title-h6">{{ __('translations.consultations.infoPayment.title') }}</h6>
+                <h3 class="consultations-info__box-title title-h6">{{ __('translations.consultations.infoPayment.title') }}</h3>
 
                 <p class="consultations-info__item-text text">
                     {{ __('translations.consultations.infoPayment.text1') }}
