@@ -630,7 +630,6 @@ body.fixed {
 }
 .education-gallery__item {
     max-width: 450px;
-    min-height: 400px;
     border-radius: 10px;
     transition: var(--transition);
     cursor: pointer;
