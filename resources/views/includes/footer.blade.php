@@ -7,7 +7,7 @@
 
             <div class="footer__items">
                 <div class="footer__item">
-                    <img class="footer-logo" src="{{ asset('images/logo-footer.svg') }}" alt="Логотип">
+                    <img class="footer-logo" width="60" height="60" src="{{ asset('images/logo-footer.svg') }}" alt="Логотип">
 
                 </div>
 

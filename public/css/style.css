@@ -27,15 +27,6 @@
 
 @font-face {
     font-family: "Fixel Display";
-    src: url("../fonts/FixelDisplay-SemiBold.woff2") format("woff2"),
-        url("../fonts/FixelDisplay-SemiBold.woff") format("woff");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Fixel Display";
     src: url("../fonts/FixelDisplay-Bold.woff2") format("woff2"),
         url("../fonts/FixelDisplay-Bold.woff") format("woff");
     font-weight: bold;
@@ -508,10 +499,7 @@ body.fixed {
 .hero__logo {
     position: absolute;
     top: 4%;
-    right: 0;
-    width: 280px;
     right: 50px;
-    width: 150px;
     z-index: 1;
 }
 .hero__image {
@@ -2398,7 +2386,12 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     }
     .hero__logo {
         width: calc(110px + 40 * (100vw - 320px) / 780);
+        height: calc(110px + 40 * (100vw - 320px) / 780);
         right: calc(0px + 50 * (100vw - 320px) / 780);
+    }
+    .hero__image {
+        width: calc(290px + 230 * (100vw - 320px) / 780);
+        height: calc(433px + 343 * (100vw - 320px) / 780);
     }
     .svg-arrow {
         align-self: center;
@@ -2434,6 +2427,11 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     }
     .education__title {
         margin-bottom: calc(20px + 10 * (100vw - 320px) / 780);
+    }
+
+    .education-gallery__image {
+        width: calc(283px + 167 * (100vw - 320px) / 780);
+        height: calc(283px + 167 * (100vw - 320px) / 780);
     }
     /* ? what */
     .what {
@@ -2571,6 +2569,10 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     }
     .reviews-image-wrapper {
         width: calc(290px + 240 * (100vw - 320px) / 780);
+    }
+    .reviews__image {
+        width: calc(290px + 230 * (100vw - 320px) / 780);
+        height: calc(493px + 390 * (100vw - 320px) / 780);
     }
     /* ? crazy-slider */
     .crazy-slider-big .crazy-slide {

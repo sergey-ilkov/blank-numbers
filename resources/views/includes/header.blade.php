@@ -4,7 +4,7 @@
 
             <div class="header-logo">
                 <a href="{{ route('home') }}">
-                    <img class="logo" src="{{ asset('images/logo.svg') }}" alt="Логотип">
+                    <img class="logo" width="60" height="60" src="{{ asset('images/logo.svg') }}" alt="Логотип">
                 </a>
 
             </div>

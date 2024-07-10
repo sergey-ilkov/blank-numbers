@@ -97,8 +97,8 @@
             </div>
 
             <div class="hero__images">
-                <img class="hero__logo" src="{{ asset('images/logo.svg') }}" alt="{{ __('base.altLogo') }}">
-                <img class="hero__image" src="{{ asset('images/me.webp') }}" alt="{{ __('base.altMe') }}">
+                <img class="hero__logo" width="150" height="150" src="{{ asset('images/logo.svg') }}" alt="{{ __('base.altLogo') }}">
+                <img class="hero__image" width="520" height="776" src="{{ asset('images/me.webp') }}" alt="{{ __('base.altMe') }}">
 
             </div>
         </div>
@@ -238,14 +238,14 @@
 
                 <div class="education-gallery__item gallery-item" data-src="{{ asset('images/certificates/01-big.webp') }}">
 
-                    <img class="education-gallery__image lazy-image" src="{{ asset('images/lazy_img.jpg') }}"
+                    <img class="education-gallery__image lazy-image" width="450" height="450" src="{{ asset('images/lazy_img.jpg') }}"
                         data-src="{{ asset('images/certificates/01.webp') }}" alt="{{ __('base.altCertificat') }}">
 
                 </div>
 
                 <div class="education-gallery__item gallery-item" data-src="{{ asset('images/certificates/02-big.webp') }}">
 
-                    <img class="education-gallery__image lazy-image" src="{{ asset('images/lazy_img.jpg') }}"
+                    <img class="education-gallery__image lazy-image" width="450" height="450" src="{{ asset('images/lazy_img.jpg') }}"
                         data-src="{{ asset('images/certificates/02.webp') }}" alt="{{ __('base.altCertificat') }}">
 
                 </div>
@@ -457,8 +457,8 @@
 
             <div class="reviews-image-wrapper">
 
-                <img class="reviews__image lazy-image" src="{{ asset('images/lazy_img.jpg') }}" data-src="{{ asset('images/me-2.webp') }}"
-                    alt="{{ __('base.altMe') }}">
+                <img class="reviews__image lazy-image" width="520" height="883" src="{{ asset('images/lazy_img.jpg') }}"
+                    data-src="{{ asset('images/me-2.webp') }}" alt="{{ __('base.altMe') }}">
 
             </div>
 
