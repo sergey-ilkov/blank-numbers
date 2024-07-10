@@ -735,17 +735,21 @@ class CrazySlider {
     }
 }
 
-
 const divCrazySlider = document.querySelector('#crazy-slider');
 const divCrazySliderBig = document.querySelector('#crazy-slider-big');
-if (divCrazySlider && divCrazySliderBig) {
-    const crazySlider = new CrazySlider(divCrazySlider, divCrazySliderBig,
-        {
-            bgColors: ['#e63946', '#77917f'],
-            duration: 500, // ms
-        }
-    );
+
+function initCrazySlider() {
+
+    if (divCrazySlider && divCrazySliderBig) {
+        const crazySlider = new CrazySlider(divCrazySlider, divCrazySliderBig,
+            {
+                bgColors: ['#e63946', '#77917f'],
+                duration: 500, // ms
+            }
+        );
+    }
 }
+
 
 
 
@@ -1462,6 +1466,8 @@ if (lazyLoadImages.length > 0) {
 
 // ? GSAP animation
 window.onload = () => {
+
+    initCrazySlider();
 
     // ? celebrities
     const sectionCelebrity = document.querySelector('#celebrities');
