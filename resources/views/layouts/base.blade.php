@@ -9,6 +9,34 @@
     @include('includes.preloder')
 
 
+    <style>
+        @font-face {
+            font-family: "Fixel Display";
+            src: url("/fonts/FixelDisplay-Regular.woff2") format("woff2"),
+                url("/fonts/FixelDisplay-Regular.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Fixel Display";
+            src: url("/fonts/FixelDisplay-Medium.woff2") format("woff2"),
+                url("/fonts/FixelDisplay-Medium.woff") format("woff");
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Fixel Display";
+            src: url("/fonts/FixelDisplay-Bold.woff2") format("woff2"),
+                url("/fonts/FixelDisplay-Bold.woff") format("woff");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') . '?v=' . rand(10, 1000) }}">
 
