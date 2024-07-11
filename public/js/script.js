@@ -1490,7 +1490,7 @@ window.onload = () => {
 
     let tlHero = gsap.timeline({
 
-        delay: 1
+        delay: 0.2
     });
 
 

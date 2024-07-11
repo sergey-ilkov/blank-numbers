@@ -10,22 +10,26 @@
     .preloader {
         position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
         width: 100%;
         height: 100vh;
         z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .preloader-circle {
-        display: block;
         position: absolute;
+        display: block;
         top: 30%;
-        left: 70%;
-        width: 0;
-        border-radius: 50%;
+        left: 60%;
+        width: 50vw;
+        height: 50vw;
+        transform: translate(-50%, -50%) scale(0.3);
         aspect-ratio: 1;
-        background-color: transparent;
-        transform: translate(-50%, -50%);
+        background-color: #F9F7E8;
+
     }
 
     .preloader-circle::before {
@@ -36,62 +40,17 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100%;
+        height: 100%;
         aspect-ratio: 1;
         border-radius: 50%;
         background-color: transparent;
-        border: 200vw solid #F9F7E8;
-    }
-
-    .preloader.start .preloader-circle {
-        animation: anim-preloader 2s ease 0s forwards;
-    }
-
-    .preloader.start {
-        animation: off-preloader 0s ease 1s forwards;
-    }
-
-    @keyframes anim-preloader {
-        0% {
-            width: 0;
-        }
-
-        100% {
-            width: 400vw;
-        }
-    }
-
-    @keyframes off-preloader {
-        0% {
-            position: fixed;
-            z-index: 100;
-        }
-
-        99% {
-            position: fixed;
-            z-index: 100;
-        }
-
-        100% {
-            display: none;
-            pointer-events: none;
-        }
-    }
-
-    @media(max-width: 900px) {
-        .preloader.start .preloader-circle {
-            animation: anim-preloader 2s ease 0s forwards;
-        }
+        border: 500vh solid #F9F7E8;
     }
 
     .square {
-        position: absolute;
         width: 50px;
         height: 50px;
         border: 2px solid #77917f;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        transform-origin: center;
         animation: square-preloader 1s ease 0s infinite;
     }
 
@@ -119,34 +78,69 @@
     }
 
     .preloader.start .square {
-        animation: square-preloader 1s ease infinite, off-quare-preloader 0.2s ease 0s forwards;
+        transition: opacity 0.2s ease;
+        opacity: 0;
 
     }
 
     @keyframes square-preloader {
         0% {
-            transform: translate(-50%, -50%) rotate(0deg);
-            top: 50%;
+            transform: translateY(0) rotate(0deg);
         }
 
         70% {
-            transform: translate(-50%, -50%) rotate(360deg);
-            top: 40%;
+            transform: translateY(-50px) rotate(360deg);
         }
 
         100% {
-            transform: translate(-50%, -50%) rotate(360deg);
-            top: 50%;
+            transform: translateY(0) rotate(360deg);
         }
     }
 
-    @keyframes off-quare-preloader {
+
+
+
+    .preloader.start .preloader-circle {
+        animation: start 2s ease 0s forwards;
+    }
+
+    .preloader.start {
+        animation: off 0s ease 1.4s forwards;
+    }
+
+
+
+
+    @keyframes start {
         0% {
-            opacity: 1;
+            transform: translate(-50%, -50%) scale(0.3);
+            background-color: #F9F7E8;
+        }
+
+        1% {
+            transform: translate(-50%, -50%) scale(0.3);
+            background-color: transparent;
+        }
+
+
+        100% {
+            transform: translate(-50%, -50%) scale(10);
+            background-color: transparent;
+        }
+    }
+
+    @keyframes off {
+        0% {
+            z-index: 50;
+        }
+
+        99% {
+            z-index: 50;
         }
 
         100% {
-            opacity: 0;
+            display: none;
+            pointer-events: none;
         }
     }
 </style>
