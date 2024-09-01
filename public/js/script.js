@@ -1183,7 +1183,6 @@ const divOrderModal = document.querySelector('#modal-order');
 
 if (divButtonsOpenModal && divOrderModal) {
     const orderModal = new OrderModal(divOrderModal, divButtonsOpenModal, {
-
         speed: 1000, // ms 
     });
 
