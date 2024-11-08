@@ -155,6 +155,7 @@ class CelebrityController extends Controller
 
             $celebrities = Celebrity::where("{$surname}", 'like', "{$search}%")
                 ->where('published', true)
+                ->orderBy("{$surname}", 'asc')
                 ->get();
 
             return CelebrityResource::collection($celebrities);
