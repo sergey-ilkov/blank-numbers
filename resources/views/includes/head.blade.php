@@ -10,7 +10,7 @@
 
 @endif
 
- 
+
 <meta name="description" content="{{ __('seo.' . $page . '.desc') }}">
 <meta name="keywords" content="{{ __('seo.' . $page . '.keywords') }}">
 <meta name="image" content="{{ asset('images/logo.png') }}">
@@ -39,13 +39,13 @@
 <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
 <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicons/favicon-96x96.png') }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
-<link rel="manifest" href="{{ asset('images/favicons/manifest.json') }}">
+{{--
+<link rel="manifest" href="{{ asset('images/favicons/manifest.json') }}"> --}}
 <meta name="msapplication-TileColor" content="#F9F7E8">
 <meta name="msapplication-TileImage" content="{{ asset('images/favicons/ms-icon-144x144.png"') }}">
 <meta name="theme-color" content="#F9F7E8">
-<meta name="apple-mobile-web-app-title" content="{{ __('seo.' . $page . '.title') }}">
+<meta name="apple-mobile-web-app-title" content="{{ __(' seo.' . $page . '.title' ) }}">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 <meta name="format-detection" content="address=no">
-
-    

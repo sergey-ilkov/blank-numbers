@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Filters\CelebrityFilter;
 use App\Http\Resources\CelebrityResource;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class CelebrityController extends Controller
 {
@@ -110,10 +111,18 @@ class CelebrityController extends Controller
     {
 
         if (!isset($request->language)) {
+
+            // ? info log
+            Log::error('ERROR: not language');
+
             return response()->json(['message' => 'Error get data']);
         }
 
         if (!in_array($request->language, ['uk', 'ru'])) {
+
+            // ? info log
+            Log::error('ERROR: not language array: uk, ru');
+
             return response()->json(['message' => 'Error get data']);
         }
 
@@ -122,8 +131,23 @@ class CelebrityController extends Controller
 
             if (is_numeric($request->details['id'])) {
                 $id = $request->details['id'];
-                return new CelebrityResource(Celebrity::find($id));
+
+                // ? info log
+                Log::info('details INPUT: ', ['details' => $request->details['id']]);
+
+                $resData = new CelebrityResource(Celebrity::find($id));
+
+                // ? info log
+                Log::info('details OUTPUT: ', ['result' => $resData]);
+
+                return $resData;
+                // return new CelebrityResource(Celebrity::find($id));
+
             } else {
+
+                // ? info log
+                Log::error('ERROR: id no number');
+
                 return response()->json(['message' => 'Error get data']);
             }
         }
@@ -136,6 +160,8 @@ class CelebrityController extends Controller
 
         if ($request->filters) {
 
+            // ? info log
+            Log::info('filters INPUT: ', ['filters' => $request->filters]);
 
             $filter = app()->make(CelebrityFilter::class, ['queryParams' => array_filter($request->filters)]);
 
@@ -145,7 +171,13 @@ class CelebrityController extends Controller
                 ->orderBy("{$surname}", 'asc')
                 ->get();
 
-            return CelebrityResource::collection($celebrities);
+            $resData = CelebrityResource::collection($celebrities);
+
+            // ? info log
+            Log::info('filters OUTPUT: ', ['result' => $resData]);
+
+            return $resData;
+            // return CelebrityResource::collection($celebrities);
         }
 
 
@@ -153,13 +185,26 @@ class CelebrityController extends Controller
 
             $search = $request->search;
 
+            // ? info log
+            Log::info('search  INPUT: ', ['search' => $search]);
+
             $celebrities = Celebrity::where("{$surname}", 'like', "{$search}%")
                 ->where('published', true)
                 ->orderBy("{$surname}", 'asc')
                 ->get();
 
-            return CelebrityResource::collection($celebrities);
+            $resData = CelebrityResource::collection($celebrities);
+
+            // ? info log
+            Log::info('search OUTPUT: ', ['result' => $resData]);
+
+            return $resData;
+            // return CelebrityResource::collection($celebrities);
         }
+
+
+        // ? info log
+        Log::error('ERROR: Error get data');
 
 
         return response()->json(['message' => 'Error get data']);
