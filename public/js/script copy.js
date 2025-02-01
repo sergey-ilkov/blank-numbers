@@ -1899,8 +1899,6 @@ class Celebrities {
         this.textResultError = this.divResult.querySelector('.celebrities-result-error');
         this.textResultEmpty = this.divResult.querySelector('.celebrities-result-empty');
 
-        this.detailsResultError = document.querySelector('.modal-details-error');
-
         this.divResultShow = this.divResult.querySelector('#celebrities-result-show');
         this.divResultShowList = this.divResult.querySelector('#celebrities-result__list');
 
@@ -1985,8 +1983,6 @@ class Celebrities {
         this.modalEmail = document.querySelector('#celebrities-modal-email');
         this.modalEmailBody = this.modalEmail.querySelector('.modal-email-body');
         this.btnModalEmailClose = this.modalEmail.querySelector('.btn-modal-email-close');
-
-        this.html = '';
 
         this.init();
     }
@@ -2306,17 +2302,13 @@ class Celebrities {
 
     }
 
-    resSuccess() {
-
-
+    setResultHTML() {
 
         this.isUnlocking();
 
         this.divResult.classList.remove('search');
 
         if (this.currentShow === 'result') {
-            this.textResultError.classList.remove('show');
-
             if (this.objData == null) {
                 this.textResultError.classList.add('show');
                 return;
@@ -2359,9 +2351,6 @@ class Celebrities {
         }
 
         if (this.currentShow === 'details') {
-
-            this.detailsResultError.classList.remove('show');
-            this.modalDetails.classList.remove('error');
 
             if (this.objDataDetails.data && this.objDataDetails.data.square) {
 
@@ -2488,32 +2477,6 @@ class Celebrities {
 
     }
 
-    resError() {
-
-        this.isUnlocking();
-
-        this.divResult.classList.remove('search');
-
-        if (this.currentShow === 'result') {
-            this.textResultError.classList.add('show');
-            this.divResultCount.innerHTML = '';
-            this.divResultShowList.innerHTML = '';
-        }
-
-
-        if (this.currentShow === 'details') {
-            this.detailsResultError.classList.add('show');
-
-            this.modalDetails.classList.add('error');
-
-            this.detailsDescriptions.innerHTML = '';
-            this.detailsMovies.innerHTML = '';
-        }
-
-
-
-    }
-
     isBlocking() {
         this.flagSendData = false;
 
@@ -2529,6 +2492,8 @@ class Celebrities {
     isUnlocking() {
         this.flagSendData = true;
         this.sectionCelebrity.classList.remove('blocking');
+
+
     }
 
     getDataInputSearch() {
@@ -2799,9 +2764,6 @@ class Celebrities {
 
     sendData() {
 
-        this.objData = null;
-        this.objDataDetails = null;
-
         const url = window.location.href;
 
         const options = {
@@ -2825,22 +2787,20 @@ class Celebrities {
             .then(result => {
 
                 if (this.currentShow === 'result') {
-                    this.objData = result;
 
+                    this.objData = result;
                 }
                 if (this.currentShow === 'details') {
-                    this.objDataDetails = result;
 
+                    this.objDataDetails = result;
                 }
 
-                this.resSuccess();
-
-
+                this.setResultHTML();
 
             })
             .catch(error => {
                 console.error('Fetch error:', error);
-                this.resError();
+                this.setResultHTML();
             });
     }
 }

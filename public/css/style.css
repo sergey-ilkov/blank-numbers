@@ -3801,3 +3801,29 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
         padding-bottom: 60px;
     }
 }
+.modal-details-body {
+    position: relative;
+}
+.modal-details-error {
+    display: none;
+    position: absolute;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+}
+.modal-details-error span {
+    text-align: center;
+}
+.modal-details-error.show {
+    display: flex;
+}
+
+.celebrities-modal-details.error .modal-details-error {
+    display: flex;
+}
+.celebrities-modal-details.error .modal-details-preloader {
+    display: none;
+}
+.celebrities-modal-details.error .details-body__items {
+    opacity: 0;
+}

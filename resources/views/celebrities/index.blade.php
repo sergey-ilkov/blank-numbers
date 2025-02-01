@@ -654,7 +654,7 @@
                         </div>
                     </div>
                     <p class="celebrities-result-error">
-                        {{ __('translations.celebrities.result.error') }}
+                        {!! __('translations.celebrities.result.error') !!}
                     </p>
                     <p class="celebrities-result-empty">
                         {!! __('translations.celebrities.result.empty') !!}
@@ -734,6 +734,12 @@
             </div>
         </div>
 
+        <div class="modal-details-error">
+            <span>
+                {!! __('translations.celebrities.result.error') !!}
+            </span>
+        </div>
+
         <div id="details-body" class="details-body__items">
             <div class="details-body__item details-body__item-square">
 
@@ -805,16 +811,9 @@
 
                     <div id="details-celebrity" class="details-celebrity">
 
-                        <h4 class="details-content__title title-h4">Фріда Кало</h4>
+                        <h4 class="details-content__title title-h4"></h4>
                         <div class="details-content-text">
-                            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis excepturi cupiditate provident ipsum
-                                accusamus, at similique impedit unde corporis voluptatem necessitatibus eos nisi, alias harum dolores fugit
-                                dolore. Eos exercitationem dolore quaerat corrupti. Architecto exercitationem consectetur harum ducimus
-                                culpa
-                                repellat.
-                                <br><br>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, adipisci.
-                            </div>
+
                         </div>
                     </div>
 
