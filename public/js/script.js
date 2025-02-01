@@ -2840,6 +2840,7 @@ class Celebrities {
             })
             .catch(error => {
                 console.error('Fetch error:', error);
+
                 this.resError();
             });
     }
