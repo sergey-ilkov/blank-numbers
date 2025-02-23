@@ -45,9 +45,15 @@ class CelebrityController extends Controller
             return response()->json($movies);
         }
         if ($request->table === 'connections') {
-            $search = $request->search . '%';
+            $search = $request->search;
 
-            $celebrities = Celebrity::select('id', 'surname_uk', 'name_uk', 'year')->where('surname_uk', 'like', $search)->get();
+            $celebrities = Celebrity::select('id', 'surname_uk', 'name_uk', 'year')
+                ->whereAny(['name_uk', 'surname_uk'], 'like', "%{$search}%")
+                ->orWhere(DB::raw("concat(surname_uk, ' ', name_uk)"), 'LIKE', "%{$search}%")
+                ->orWhere(DB::raw("concat(name_uk, ' ', surname_uk)"), 'LIKE', "%{$search}%")
+                ->orderBy("surname_uk", 'asc')
+                ->get();
+
             return response()->json($celebrities);
         }
 
@@ -68,11 +74,11 @@ class CelebrityController extends Controller
 
         $validationCelebrity = request()->validate([
             'name_uk' => 'required|string',
-            'surname_uk' => 'required|string',
+            // 'surname_uk' => 'string',
             'gender_uk' => 'required|string',
             'description_uk' => 'required|string',
             'name_ru' => 'required|string',
-            'surname_ru' => 'required|string',
+            // 'surname_ru' => 'string',
             'gender_ru' => 'required|string',
             'description_ru' => 'required|string',
 
@@ -82,11 +88,20 @@ class CelebrityController extends Controller
             'occupations' => 'required',
         ]);
 
-        if ($request->has('published')) {
-            $validationCelebrity['published'] = true;
-        } else {
-            $validationCelebrity['published'] = false;
+
+        if ($request->has('surname_uk')) {
+            $validationCelebrity['surname_uk'] = $request->surname_uk;
         }
+        if ($request->has('surname_ru')) {
+            $validationCelebrity['surname_ru'] = $request->surname_ru;
+        }
+
+        if ($request->has('links')) {
+            $validationCelebrity['links'] = $request->links;
+        }
+
+        $validationCelebrity['published'] = $request->has('published') ? true : false;
+
 
 
 
@@ -183,11 +198,11 @@ class CelebrityController extends Controller
 
         $validationCelebrity = request()->validate([
             'name_uk' => 'required|string',
-            'surname_uk' => 'required|string',
+
             'gender_uk' => 'required|string',
             'description_uk' => 'required|string',
             'name_ru' => 'required|string',
-            'surname_ru' => 'required|string',
+
             'gender_ru' => 'required|string',
             'description_ru' => 'required|string',
 
@@ -195,6 +210,18 @@ class CelebrityController extends Controller
             'month' => 'required|integer|between:1,12',
             'year' => 'required|integer|min:1',
         ]);
+
+
+        if ($request->has('surname_uk')) {
+            $validationCelebrity['surname_uk'] = $request->surname_uk;
+        }
+        if ($request->has('surname_ru')) {
+            $validationCelebrity['surname_ru'] = $request->surname_ru;
+        }
+
+        if ($request->has('links')) {
+            $validationCelebrity['links'] = $request->links;
+        }
 
         // ? add square
 
@@ -240,11 +267,8 @@ class CelebrityController extends Controller
 
         ]);
 
-        if ($request->has('published')) {
-            $validationCelebrity['published'] = true;
-        } else {
-            $validationCelebrity['published'] = false;
-        }
+
+        $validationCelebrity['published'] = $request->has('published') ? true : false;
 
         $celebrity = Celebrity::where('id', $id)->first();
 

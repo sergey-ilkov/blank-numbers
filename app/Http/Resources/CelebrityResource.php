@@ -34,6 +34,7 @@ class CelebrityResource extends JsonResource
                 'description' => $this->$description,
 
                 // 'gender' => $this->$gender,
+                'links' => $this->links,
 
                 'day' => $this->day,
                 'month' => $this->month,
@@ -82,7 +83,10 @@ class CelebrityResource extends JsonResource
                 'movies' => $lang == 'uk' ?
                     collect($this->movies)->map(function ($item) {
                         return [
-                            'title' => $item->title_uk, 'year' => $item->year, 'poster' => $item->poster, 'trailer' => $item->trailer,
+                            'title' => $item->title_uk,
+                            'year' => $item->year,
+                            'poster' => $item->poster,
+                            'trailer' => $item->trailer,
 
                             'actors' => collect($item->actors)->map(function ($actor) {
                                 return ['name' => $actor->name_uk, 'surname' => $actor->surname_uk];
@@ -90,7 +94,10 @@ class CelebrityResource extends JsonResource
                         ];
                     }) : collect($this->movies)->map(function ($item) {
                         return [
-                            'title' => $item->title_ru, 'year' => $item->year, 'poster' => $item->poster, 'trailer' => $item->trailer,
+                            'title' => $item->title_ru,
+                            'year' => $item->year,
+                            'poster' => $item->poster,
+                            'trailer' => $item->trailer,
                             'actors' => collect($item->actors)->map(function ($actor) {
                                 return ['name' => $actor->name_ru, 'surname' => $actor->surname_ru];
                             })

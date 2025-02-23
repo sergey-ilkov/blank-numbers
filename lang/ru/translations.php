@@ -251,7 +251,7 @@ return [
             'filter' => 'фильтр',
         ],
         'filter' => [
-            'search-placeholder' => 'Поиск по фамилии',
+            'search-placeholder' => 'Имя, фамилия, псевдоним',
             'gender' => 'Пол',
             'genderArray' => [
                 'ж',
@@ -298,6 +298,7 @@ return [
         'preloader-searh' => 'Поиск...',
 
         'request-input' => "Имя и фамилия",
+        'video-links' => 'Смотри видео-разбор:',
 
         'connections-title' => "Связанные знаменитости в БД Селебрити:",
         'movie' => [

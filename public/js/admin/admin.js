@@ -491,6 +491,9 @@ class SearchData {
         this.arrayShowList = [];
         this.tempObj = {};
 
+        this.surname = '';
+
+        this.valueSearch = '';
 
         this.cardBody = document.querySelector('.card-body');
         this.init();
@@ -506,16 +509,7 @@ class SearchData {
     searchItems() {
         const searchItems = this.selectGroup.querySelectorAll('.select-show__item');
         searchItems.forEach(item => {
-            // console.log(item);
 
-            // if (this.currentTable === 'occupations') {
-
-            //     this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name') }
-            // }
-            // if (this.currentTable === 'actors') {
-
-            //     this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name'), 'surname': item.getAttribute('data-surname') }
-            // }
 
             this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name') };
 
@@ -525,11 +519,7 @@ class SearchData {
     }
 
     events() {
-        // this.selectGroup.addEventListener('click', (e) => {
-        //     if (!e.target.closest('.select-checkbox')) {
-        //         this.divSearchList.classList.remove('open');
-        //     }
-        // })
+
 
         this.btnSearch.addEventListener('click', () => {
 
@@ -563,21 +553,7 @@ class SearchData {
             const item = e.target.closest('.select-checkbox__item');
 
             if (item) {
-                // if (this.currentTable === 'occupations') {
 
-                //     this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name') }
-                // }
-                // if (this.currentTable === 'actors') {
-
-                //     this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name'), 'surname': item.getAttribute('data-surname') }
-                // }
-                // if (this.currentTable === 'movies') {
-
-                //     this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name'), 'surname': item.getAttribute('data-surname') }
-                // }
-                // console.log(item);
-                // console.log('this.arrayShowList[this.tempObj[id]] ', this.arrayShowList[this.tempObj['id']]);
-                // console.log('');
 
                 this.tempObj = { id: item.getAttribute('data-id'), 'name': item.getAttribute('data-name') };
 
@@ -618,7 +594,7 @@ class SearchData {
 
     }
     removeShowList() {
-        console.log('remove');
+        // console.log('remove');
         this.arrayShowList.forEach((item, index) => {
             if (item['id'] === this.tempObj['id']) {
                 this.arrayShowList.splice(index, 1);
@@ -651,7 +627,7 @@ class SearchData {
 
 
     setShowListHtml() {
-        console.log('setShowListHtml()');
+        // console.log('setShowListHtml()');
 
         let html = '';
 
@@ -680,8 +656,8 @@ class SearchData {
     }
 
     setSearchListHTML() {
-        console.log('table: ', this.currentTable);
-        console.log('data: ', this.objData);
+        // console.log('table: ', this.currentTable);
+        // console.log('data: ', this.objData);
 
         if (this.objData.length == 0) {
             this.divSearchList.innerHTML = 'Нічого не знайдено';
@@ -698,18 +674,20 @@ class SearchData {
         let dataNameValue = '';
 
         this.objData.forEach(item => {
+            this.surname = item['surname_uk'] ? item['surname_uk'] : '';
 
             if (this.currentTable === 'occupations') {
                 dataNameValue = item['title_uk'];
             }
             if (this.currentTable === 'actors') {
-                dataNameValue = item['surname_uk'] + ' ' + item['name_uk'];
+                dataNameValue = this.surname + ' ' + item['name_uk'];
             }
             if (this.currentTable === 'movies') {
                 dataNameValue = item['title_uk'] + ' ' + item['year'];
             }
             if (this.currentTable === 'connections') {
-                dataNameValue = item['surname_uk'] + ' ' + item['name_uk'] + ' ' + item['year'];
+                dataNameValue = this.surname + ' ' + item['name_uk'] + ' ' + item['year'];
+                // dataNameValue = item['surname_uk'] + ' ' + item['name_uk'] + ' ' + item['year'];
             }
 
 
@@ -740,9 +718,14 @@ class SearchData {
         this.requestData['table'] = this.btnSearch.getAttribute('data-table');
         this.requestData['_token'] = this.token;
 
-        this.requestData['search'] = this.inputSearch.value;
 
-        console.log(this.requestData)
+        this.valueSearch = this.inputSearch.value.replace(/\s+/g, ' ').trim();
+
+        this.inputSearch.value = this.valueSearch;
+
+        this.requestData['search'] = this.valueSearch;
+
+        // console.log(this.requestData)
         // return console.log(this.requestData);
 
 
@@ -802,3 +785,292 @@ document.addEventListener('trix-before-paste', function (e) {
         e.paste.html = div.textContent;
     }
 });
+
+
+
+
+// ? modal editor links
+
+
+
+const htmlModalEditorlinks = `
+    <div id="modal-editor-links" class="modal-editor-links">
+        <div class="modal-editor-links-body">
+            <button class="modal-editor-links__btn-close">X</button>
+            <div class="modal-editor-links-group">
+                <span>Текст посилання</span>
+                <input id="modal-editor-input-txt" type="text">
+            </div>
+            <div class="modal-editor-links-group">
+                <span>URL адреса</span>
+                <input id="modal-editor-input-url" type="text">
+            </div>
+            <button id="modal-editor-btn-save" class="modal-editor-links__btn-save">Зберегти</button>
+        </div>
+    </div>
+`;
+
+
+
+function addModalEditor() {
+
+    body.insertAdjacentHTML('beforeend', htmlModalEditorlinks);
+
+}
+
+
+class EditorLinks {
+    constructor(editor) {
+        this.divEditor = editor;
+
+        this.inputEditor = this.divEditor.querySelector('.editor-links-input');
+
+        this.divOut = this.divEditor.querySelector('.editor-links-out');
+
+
+        this.btnAdd = this.divEditor.querySelector('.editor-links__btn-add');
+        this.btnEdit = this.divEditor.querySelector('.editor-links__btn-edit');
+        this.btnDelete = this.divEditor.querySelector('.editor-links__btn-del');
+
+        this.modalEditor = document.querySelector('#modal-editor-links');
+
+
+        this.inputs = null;
+        this.modalInputText = null;
+        this.modalInputUrl = null;
+
+        this.btnSave = null;
+
+        this.flagSave = false;
+        this.html = '';
+
+        this.divOutLength = this.divOut.innerHTML.length;
+
+        this.currentLink = null;
+        this.coordsCurrentLink = null;
+
+        this.popupLinks = this.divEditor.querySelector('#popup-editor-links');
+        this.popupLinksText = this.divEditor.querySelector('.popup-editor-links-text');
+
+
+
+        this.flagEditDelete = false;
+        this.currentSeparator = null;
+
+        this.btnSaveAction = 'add';
+
+        this.init();
+    }
+
+    init() {
+        if (!this.inputEditor || !this.divOut || !this.popupLinks || !this.btnAdd || !this.btnEdit || !this.btnDelete || !this.modalEditor) {
+            console.error('Error init EditorLinks');
+            return;
+        };
+
+        this.inputs = this.modalEditor.querySelectorAll('input');
+
+        this.modalInputText = this.modalEditor.querySelector('#modal-editor-input-txt');
+        this.modalInputUrl = this.modalEditor.querySelector('#modal-editor-input-url');
+        this.btnSave = this.modalEditor.querySelector('#modal-editor-btn-save');
+        this.btnSave.setAttribute('disabled', true);
+
+        console.log('init EditorLinks');
+
+        // this.inputEditor.innerHTML = this.divOut.innerHTML.trim();
+        console.log(this.inputEditor.innerHTML);
+
+        // this.divOut.innerHTML = this.inputEditor.value;
+
+        if (this.inputEditor.value) {
+            this.divOut.innerHTML = this.inputEditor.value;
+
+            // this.html = `${this.inputEditor.value}`;
+            // this.divOut.insertAdjacentHTML('beforeend', this.html);
+        }
+
+        this.events();
+
+    }
+    events() {
+        this.btnAdd.addEventListener('click', () => {
+            this.clearInputs();
+
+            this.btnSave.setAttribute('data-action', 'add');
+            this.btnSave.setAttribute('disabled', true);
+
+            this.openModal();
+        })
+
+        this.modalEditor.addEventListener('click', (e) => {
+
+            if (!e.target.closest('.modal-editor-links-body') || e.target.closest('.modal-editor-links__btn-close')) {
+                this.closeModal();
+            }
+        })
+
+        this.inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                this.validate();
+            })
+
+        })
+
+        this.btnSave.addEventListener('click', () => {
+
+            this.btnSaveAction = this.btnSave.getAttribute('data-action');
+            if (this.btnSaveAction == 'add') {
+
+                this.addLink();
+            }
+            if (this.btnSaveAction == 'edit') {
+
+                this.editLink();
+            }
+
+            this.closeModal();
+        })
+
+
+        this.divEditor.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // console.log(e.target.tagName);
+            if (e.target.tagName === 'A') {
+                this.currentLink = e.target;
+                this.popupLinksText.innerText = this.currentLink.innerText;
+
+
+                this.popupLinks.classList.add('open');
+                this.flagEditDelete = true;
+            } else {
+                this.popupLinks.classList.remove('open');
+                this.flagEditDelete = false;
+            }
+
+        })
+
+
+        this.btnDelete.addEventListener('click', () => {
+            this.removeLink();
+        })
+
+        this.btnEdit.addEventListener('click', () => {
+            this.editModal();
+
+            this.btnSave.setAttribute('data-action', 'edit');
+
+            this.openModal();
+        })
+
+    }
+
+    editLink() {
+
+
+        this.currentLink.innerText = this.modalInputText.value;
+        this.currentLink.href = this.modalInputUrl.value;
+
+        this.currentLink = null;
+
+        this.inputEditor.value = this.divOut.innerHTML.trim();
+    }
+
+    editModal() {
+        if (this.flagEditDelete && this.currentLink) {
+
+            this.modalInputText.value = this.currentLink.innerText;
+            this.modalInputUrl.value = this.currentLink.href;
+        }
+    }
+
+    removeLink() {
+        if (this.flagEditDelete) {
+
+            this.currentSeparator = this.currentLink.previousElementSibling;
+
+
+            if (!this.currentSeparator) {
+                this.currentSeparator = this.currentLink.nextSibling;
+            }
+
+            if (this.currentSeparator && this.currentSeparator.tagName == 'SPAN') {
+                this.currentSeparator.remove();
+            }
+
+
+
+            this.currentLink.remove();
+
+
+            console.log('this.currentLink ', this.currentLink);
+            console.log('this.currentSeparator ', this.currentSeparator);
+
+            this.currentLink = null;
+            this.currentSeparator = null;
+
+
+            this.inputEditor.value = this.divOut.innerHTML.trim();
+        }
+
+    }
+
+    clearInputs() {
+        this.inputs.forEach(input => {
+            input.value = '';
+        })
+    }
+
+    openModal() {
+        this.modalEditor.classList.add('open');
+        body.classList.add('fixed');
+    }
+
+    closeModal() {
+        this.modalEditor.classList.remove('open');
+        body.classList.remove('fixed');
+
+    }
+
+    validate() {
+        this.flagSave = true;
+        this.btnSave.removeAttribute('disabled');
+        this.inputs.forEach(input => {
+            if (input.value.length < 3) {
+                this.flagSave = false;
+                this.btnSave.setAttribute('disabled', true);
+            }
+        });
+
+    }
+
+    addLink() {
+        // console.log(this.divOut.innerHTML.length);
+        // console.log(this.divOutLength);
+
+        this.html = '';
+        if (this.divOut.innerHTML.length > this.divOutLength) {
+            this.html += '<span>, </span>';
+        }
+        this.html += `<a href="${this.modalInputUrl.value}" target="_blank">${this.modalInputText.value}</a>`;
+        this.divOut.insertAdjacentHTML('beforeend', this.html);
+
+        this.inputEditor.value = `${this.divOut.innerHTML.trim()}`;
+
+
+        // console.log(this.divOut.innerHTML.trim());
+        // console.log(this.inputEditor.value);
+
+
+    }
+}
+
+
+const editorLinksItems = document.querySelectorAll('.editor-links');
+if (editorLinksItems.length > 0) {
+    addModalEditor();
+
+    editorLinksItems.forEach(editor => {
+        new EditorLinks(editor);
+    })
+}

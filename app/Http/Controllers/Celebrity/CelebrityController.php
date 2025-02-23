@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Filters\CelebrityFilter;
 use App\Http\Resources\CelebrityResource;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CelebrityController extends Controller
@@ -188,10 +189,14 @@ class CelebrityController extends Controller
             // ? info log
             // Log::info('search  INPUT: ', ['search' => $search]);
 
-            $celebrities = Celebrity::where("{$surname}", 'like', "{$search}%")
-                ->where('published', true)
+            $celebrities = Celebrity::where('published', true)
+                ->whereAny([$name, $surname], 'like', "%{$search}%")
+                ->orWhere(DB::raw("concat({$name}, ' ', {$surname})"), 'LIKE', "%{$search}%")
+                ->orWhere(DB::raw("concat({$surname}, ' ', {$name})"), 'LIKE', "%{$search}%")
                 ->orderBy("{$surname}", 'asc')
                 ->get();
+
+
 
             $resData = CelebrityResource::collection($celebrities);
 
@@ -200,6 +205,23 @@ class CelebrityController extends Controller
 
             return $resData;
             // return CelebrityResource::collection($celebrities);
+        }
+
+        if ($request->search_letter) {
+            $search = $request->search_letter;
+            $celebrities = Celebrity::where('published', true)
+                ->where($surname, 'like', "{$search}%")
+                ->orderBy("{$surname}", 'asc')
+                ->get();
+
+
+
+            $resData = CelebrityResource::collection($celebrities);
+
+            // ? info log
+            // Log::info('search OUTPUT: ', ['result' => $resData]);
+
+            return $resData;
         }
 
 

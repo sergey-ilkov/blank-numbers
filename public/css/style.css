@@ -3054,10 +3054,12 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
     color: var(--primary-color);
     cursor: pointer;
 }
-.celebrities-alphabet__letter:hover {
+.celebrities-alphabet__letter:hover,
+.celebrities-alphabet__letter.active {
     color: var(--second-color);
     background: var(--primary-color);
 }
+
 .celebrities-filters {
     display: flex;
     flex-direction: column;
@@ -3826,4 +3828,27 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 }
 .celebrities-modal-details.error .details-body__items {
     opacity: 0;
+}
+
+.details-video-links {
+    margin-bottom: 20px;
+    display: none;
+}
+.details-video-links.show {
+    display: block;
+}
+.details-video-links__title {
+    font-size: 16px;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.details-video-links-content a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+.details-video-links-content a:hover {
+    color: var(--color-white);
+    background: var(--primary-color);
 }

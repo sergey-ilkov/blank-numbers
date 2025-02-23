@@ -817,6 +817,11 @@
                         </div>
                     </div>
 
+                    <div id="details-video-links" class="details-video-links">
+                        <span class="details-video-links__title">{{ __('translations.celebrities.video-links') }}</span>
+                        <div class="details-video-links-content"></div>
+                    </div>
+
 
                     <div id="details-movies" class="details-movies">
 

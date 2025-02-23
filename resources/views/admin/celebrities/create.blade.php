@@ -19,8 +19,7 @@
 
             <x-admin.link href="{{ route('celebrities.index') }}" class="admin-link">
 
-                <svg class="admin-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
+                <svg class="admin-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
                 </svg>
 
@@ -43,6 +42,8 @@
                 <h3 class="card__title title-h3">
 
                     {{__('admin.title.celebrities-add')}}
+
+                    <span class="card-body-info"> <span>*</span>{{ __("admin.card-body-info") }}</span>
 
                 </h3>
 
@@ -79,7 +80,7 @@
                                     </div>
                                     <div class="card-body__group card-body-col">
                                         <x-admin.form-item>
-                                            <x-admin.label> {{__('Surname')}} </x-admin.label>
+                                            <x-admin.label class="optional-fields"> {{__('Surname')}} </x-admin.label>
                                             <x-admin.input name="surname_{{ $language->code }}" />
                                         </x-admin.form-item>
                                     </div>
@@ -88,7 +89,31 @@
                                 <div class="card-body__group">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('Gender')}} </x-admin.label>
-                                        <x-admin.input name="gender_{{ $language->code }}" style="max-width: 100px" />
+
+
+                                        {{--
+                                        <x-admin.input name="gender_{{ $language->code }}" style="max-width: 100px" /> --}}
+
+                                        <x-admin.select-one name="gender_{{ $language->code }}" style="max-width: 200px">
+                                            <option value="">-- вибрати стать --</option>
+
+                                            <option value="{{ __('admin.gender.' . $language->code . '.man') }}" {{ (old("gender_$language->code")==__("admin.gender.$language->code.man") ) ?'selected': '' }}>
+
+                                                {{ __("admin.gender.$language->code.man") }}
+
+                                            </option>
+
+                                            <option value="{{ __('admin.gender.' . $language->code . '.woman' ) }}" {{ (old("gender_$language->code")==__("admin.gender.$language->code.woman") ) ?'selected': '' }}>
+
+                                                {{ __("admin.gender.$language->code.woman") }}
+
+                                            </option>
+
+                                        </x-admin.select-one>
+
+
+
+
                                     </x-admin.form-item>
                                 </div>
 
@@ -107,28 +132,66 @@
 
                             @endforeach
 
+                            <div class="video-links-box">
+
+                                <div class="card-body__group">
+                                    <x-admin.form-item>
+                                        <x-admin.label class="optional-fields"> {{__('Links (посилання на відео-розбори)')}}
+                                        </x-admin.label>
+
+
+                                        <div class="editor-links">
+
+                                            <input class="editor-links-input"  value="{{ old('links') }}" name="links" />
+                                            <div class="editor-links-row">
+
+                                                <button class="editor-links__btn-add" type="button">Додати посилання</button>
+
+                                                <div id="popup-editor-links" class="popup-editor-links">
+                                                    <span class="popup-editor-links-text"></span>
+                                                    <div class="editor-links-group-buttons">
+                                                        <button class="editor-links__btn-edit" type="button">Edit</button>
+                                                        <button class="editor-links__btn-del" type="button">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @if (old('links'))
+                                                
+                                            <div class="editor-links-out"></div>
+                                            @else
+                                                
+                                            <div class="editor-links-out"></div>
+                                            @endif
+                
+                                        </div>
+
+
+                                    </x-admin.form-item>
+                                </div>
+
+                            </div>
+
+
 
 
                             <div id="square-inputs" class="card-body-row row-start">
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('Day')}} </x-admin.label>
-                                        <x-admin.input id="square-input-day" type="number" name="day" class="input-square"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="square-input-day" type="number" name="day" class="input-square" style="max-width: 100px" min="1" max="31" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('Month')}} </x-admin.label>
-                                        <x-admin.input id="square-input-month" type="number" name="month" class="input-square"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="square-input-month" type="number" name="month" class="input-square" style="max-width: 100px" min="1" max="12" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('Year')}} </x-admin.label>
-                                        <x-admin.input id="square-input-year" type="number" name="year" class="input-square"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="square-input-year" type="number" name="year" class="input-square" style="max-width: 100px" min="1" />
                                     </x-admin.form-item>
                                 </div>
                             </div>
@@ -147,29 +210,25 @@
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('extra_number_one')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras__num-1" type="number" name="extra_number_one"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras__num-1" type="number" name="extra_number_one" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('extra_number_two')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras__num-2" type="number" name="extra_number_two"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras__num-2" type="number" name="extra_number_two" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('extra_number_three')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras__num-3" type="number" name="extra_number_three"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras__num-3" type="number" name="extra_number_three" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('extra_number_four')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras__num-4" type="number" name="extra_number_four"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras__num-4" type="number" name="extra_number_four" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                             </div>
@@ -179,22 +238,19 @@
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_one')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-1" type="number" name="number_one"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-1" type="number" name="number_one" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_four')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-4" type="number" name="number_four"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-4" type="number" name="number_four" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_seven')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-7" type="number" name="number_seven"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-7" type="number" name="number_seven" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
 
@@ -204,22 +260,19 @@
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_two')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-2" type="number" name="number_two"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-2" type="number" name="number_two" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_five')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-5" type="number" name="number_five"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-5" type="number" name="number_five" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_eight')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-8" type="number" name="number_eight"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-8" type="number" name="number_eight" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
 
@@ -229,22 +282,19 @@
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_three')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-3" type="number" name="number_three"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-3" type="number" name="number_three" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_six')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-6" type="number" name="number_six"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-6" type="number" name="number_six" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
                                 <div class="card-body__group card-body-col">
                                     <x-admin.form-item>
                                         <x-admin.label> {{__('number_nine')}} </x-admin.label>
-                                        <x-admin.input id="pythagoras-matrix__num-9" type="number" name="number_nine"
-                                            style="max-width: 100px" />
+                                        <x-admin.input id="pythagoras-matrix__num-9" type="number" name="number_nine" style="max-width: 100px" />
                                     </x-admin.form-item>
                                 </div>
 
@@ -443,7 +493,7 @@
 
                                     <div class="select-groups__item">
 
-                                        <x-admin.label> {{__('Пошук осіб (за прізвищем)')}} </x-admin.label>
+                                        <x-admin.label> {{__("Пошук осіб (ім'я, прізвище, псевдонім)")}} </x-admin.label>
 
 
                                         <div class="select-checkbox">
@@ -481,7 +531,7 @@
 
                             <div class="card-body__group card-body__group-checkbox">
                                 <x-admin.form-item>
-                                    <x-admin.checkbox name="published" id="published" />
+                                    <x-admin.checkbox name="published" id="published" checked />
                                     <x-admin.label for="published"> {{__('admin.form.published')}} </x-admin.label>
                                 </x-admin.form-item>
                             </div>

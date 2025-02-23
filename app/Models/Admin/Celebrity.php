@@ -17,11 +17,22 @@ class Celebrity extends Model
 
     protected $fillable = [
 
-        'name_uk', 'surname_uk', 'gender_uk',  'description_uk',
+        'name_uk',
+        'surname_uk',
+        'gender_uk',
+        'description_uk',
 
-        'name_ru', 'surname_ru', 'gender_ru',  'description_ru',
+        'name_ru',
+        'surname_ru',
+        'gender_ru',
+        'description_ru',
 
-        'day', 'month', 'year', 'published'
+        'links',
+
+        'day',
+        'month',
+        'year',
+        'published'
 
     ];
 
@@ -35,6 +46,8 @@ class Celebrity extends Model
         'surname_ru' => 'string',
         'gender_ru' => 'string',
         'description_ru' => 'string',
+
+        'links' => 'string',
 
         'day' => 'integer',
         'month' => 'integer',

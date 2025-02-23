@@ -1988,6 +1988,13 @@ class Celebrities {
 
         this.html = '';
 
+        this.valueSearch = '';
+
+        this.searchLetter = '';
+
+        this.detailsVideoLinks = document.querySelector('#details-video-links');
+        this.detailsVideoLinksContent = document.querySelector('.details-video-links-content');
+
         this.init();
     }
 
@@ -2034,31 +2041,38 @@ class Celebrities {
         })
 
         this.btnCancel.addEventListener('click', () => {
-            this.checkboxItems.forEach(input => {
-                input.checked = false;
-            })
-            this.filters.forEach(filter => {
-                const filterText = filter.querySelector('.filter-text');
-                filterText.innerHTML = '';
-                filterText.classList.remove('active');
-                const items = filter.querySelectorAll('.filter-select__item');
-                items.forEach(item => {
-                    item.classList.remove('active');
-                })
-            })
+            this.clearFilters();
+            // this.checkboxItems.forEach(input => {
+            //     input.checked = false;
+            // })
+            // this.filters.forEach(filter => {
+            //     const filterText = filter.querySelector('.filter-text');
+            //     filterText.innerHTML = '';
+            //     filterText.classList.remove('active');
+            //     const items = filter.querySelectorAll('.filter-select__item');
+            //     items.forEach(item => {
+            //         item.classList.remove('active');
+            //     })
+            // })
         })
 
         this.letters.forEach(letter => {
             letter.addEventListener('click', () => {
-                const search = letter.getAttribute('data-search');
-                if (search) {
+                this.searchLetter = letter.getAttribute('data-search');
+                if (this.searchLetter && !letter.closest('.active')) {
+
+                    this.clearLetters();
+                    letter.classList.add('active');
+
+                    this.clearSearch();
+                    this.clearFilters();
 
                     this.setResultStyle();
 
                     this.isBlocking();
 
                     this.setRequestDataDefault();
-                    this.requestData['search'] = search;
+                    this.requestData['search_letter'] = this.searchLetter;
 
                     this.sendData();
                 }
@@ -2067,11 +2081,16 @@ class Celebrities {
         })
 
         this.btnSend.addEventListener('click', () => {
+            this.clearSearch();
+            this.clearLetters();
             this.getDataFilters();
 
         })
 
         this.btnSearch.addEventListener('click', () => {
+            this.clearFilters();
+            this.clearLetters();
+
             this.getDataInputSearch();
 
         })
@@ -2218,6 +2237,31 @@ class Celebrities {
         })
     }
 
+
+    clearFilters() {
+        this.checkboxItems.forEach(input => {
+            input.checked = false;
+        })
+        this.filters.forEach(filter => {
+            const filterText = filter.querySelector('.filter-text');
+            filterText.innerHTML = '';
+            filterText.classList.remove('active');
+            const items = filter.querySelectorAll('.filter-select__item');
+            items.forEach(item => {
+                item.classList.remove('active');
+            })
+        })
+    }
+    clearSearch() {
+        this.inputSearch.value = '';
+    }
+
+    clearLetters() {
+        this.letters.forEach(letter => {
+            letter.classList.remove('active');
+        })
+    }
+
     sendEmail() {
 
         const url = window.location.href + '/send';
@@ -2348,7 +2392,10 @@ class Celebrities {
 
                 this.htmlCurrent += `
                     <li>
-                        <span class="details-item" data-search-details="${data.id}">${data.surname} ${data.name}</span>
+                        <span class="details-item" data-search-details="${data.id}">
+                        ${data.surname ? data.surname : ''} 
+                        ${data.name}
+                        </span>
                     </li>
                 `;
             }
@@ -2400,10 +2447,16 @@ class Celebrities {
                 this.squareTemperament.innerHTML = square.temperament || '-';
 
 
-                // ? desc
-                this.detailsSurnameName.innerHTML = `${data.name} ${data.surname}`;
+                // ? desc               
+                this.detailsSurnameName.innerHTML = `${data.name} ${data.surname ? data.surname : ''}`;
                 this.detailsDescriptions.innerHTML = data.description;
 
+                // ? video links
+                this.detailsVideoLinks.classList.remove('show');
+                if (data.links) {
+                    this.detailsVideoLinks.classList.add('show');
+                    this.detailsVideoLinksContent.innerHTML = data.links;
+                }
                 // ? movies
                 this.detailsMovies.classList.remove('show');
 
@@ -2546,7 +2599,12 @@ class Celebrities {
             this.setResultStyle();
 
             this.setRequestDataDefault();
-            this.requestData['search'] = this.inputSearch.value;
+
+            this.valueSearch = this.inputSearch.value.replace(/\s+/g, ' ').trim();
+
+            this.inputSearch.value = this.valueSearch;
+
+            this.requestData['search'] = this.valueSearch;
 
             this.sendData();
         }
