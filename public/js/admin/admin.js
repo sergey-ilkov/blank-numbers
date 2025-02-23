@@ -1003,8 +1003,8 @@ class EditorLinks {
             this.currentLink.remove();
 
 
-            console.log('this.currentLink ', this.currentLink);
-            console.log('this.currentSeparator ', this.currentSeparator);
+            // console.log('this.currentLink ', this.currentLink);
+            // console.log('this.currentSeparator ', this.currentSeparator);
 
             this.currentLink = null;
             this.currentSeparator = null;

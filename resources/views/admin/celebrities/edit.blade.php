@@ -460,7 +460,7 @@
 
                                 <div class="select-checkbox-groups">
                                     <div class="select-groups__item">
-                                        <x-admin.label> {{__('Фільми (список обраних фільмів)')}} </x-admin.label>
+                                        <x-admin.label class="optional-fields"> {{__('Фільми (список обраних фільмів)')}} </x-admin.label>
 
                                         <div class="select-show @error('movies') error @enderror">
                                             <ul class="select-show__list">
@@ -525,7 +525,7 @@
 
                                 <div class="select-checkbox-groups">
                                     <div class="select-groups__item">
-                                        <x-admin.label> {{__("Пов'язані особи (список обраних осіб)")}} </x-admin.label>
+                                        <x-admin.label class="optional-fields"> {{__("Пов'язані особи (список обраних осіб)")}} </x-admin.label>
 
                                         <div class="select-show @error('celebrities') error @enderror">
                                             <ul class="select-show__list">
