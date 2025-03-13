@@ -12,14 +12,15 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Celebrity;
 use function PHPSTORM_META\map;
 use App\Models\Admin\Occupation;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Filters\CelebrityFilter;
 use App\Http\Resources\CelebrityResource;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CelebrityController extends Controller
 {
@@ -190,12 +191,13 @@ class CelebrityController extends Controller
             // Log::info('search  INPUT: ', ['search' => $search]);
 
             $celebrities = Celebrity::where('published', true)
-                ->whereAny([$name, $surname], 'like', "%{$search}%")
-                ->orWhere(DB::raw("concat({$name}, ' ', {$surname})"), 'LIKE', "%{$search}%")
-                ->orWhere(DB::raw("concat({$surname}, ' ', {$name})"), 'LIKE', "%{$search}%")
+                ->where(function (Builder $query) use ($name, $surname, $search) {
+                    $query->whereAny([$name, $surname], 'like', "%{$search}%")
+                        ->orWhere(DB::raw("concat({$name}, ' ', {$surname})"), 'LIKE', "%{$search}%")
+                        ->orWhere(DB::raw("concat({$surname}, ' ', {$name})"), 'LIKE', "%{$search}%");
+                })
                 ->orderBy("{$surname}", 'asc')
                 ->get();
-
 
 
             $resData = CelebrityResource::collection($celebrities);
