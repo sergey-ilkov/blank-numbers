@@ -1995,6 +1995,8 @@ class Celebrities {
         this.detailsVideoLinks = document.querySelector('#details-video-links');
         this.detailsVideoLinksContent = document.querySelector('.details-video-links-content');
 
+        this.resultData = null;
+
         this.init();
     }
 
@@ -2042,18 +2044,6 @@ class Celebrities {
 
         this.btnCancel.addEventListener('click', () => {
             this.clearFilters();
-            // this.checkboxItems.forEach(input => {
-            //     input.checked = false;
-            // })
-            // this.filters.forEach(filter => {
-            //     const filterText = filter.querySelector('.filter-text');
-            //     filterText.innerHTML = '';
-            //     filterText.classList.remove('active');
-            //     const items = filter.querySelectorAll('.filter-select__item');
-            //     items.forEach(item => {
-            //         item.classList.remove('active');
-            //     })
-            // })
         })
 
         this.letters.forEach(letter => {
@@ -2099,7 +2089,7 @@ class Celebrities {
 
             this.btnResultNext.removeAttribute('disabled');
 
-            if (this.stepMax == this.objData.data.length) {
+            if (this.stepMax == this.resultData.length) {
                 this.stepMax = this.indexResult;
             } else {
                 this.stepMax -= this.stepResult;
@@ -2121,16 +2111,16 @@ class Celebrities {
 
             this.btnResultPrev.removeAttribute('disabled');
 
-            if (this.indexResult + this.stepResult < this.objData.data.length) {
+            if (this.indexResult + this.stepResult < this.resultData.length) {
                 this.indexResult += this.stepResult;
             }
 
             this.stepMax = this.indexResult + this.stepResult;
 
-            if (this.stepMax > this.objData.data.length) {
+            if (this.stepMax > this.resultData.length) {
 
                 this.btnResultNext.setAttribute('disabled', true);
-                this.stepMax = this.objData.data.length;
+                this.stepMax = this.resultData.length;
             }
 
             this.showResultList();
@@ -2328,10 +2318,13 @@ class Celebrities {
         this.divResultShowList.innerHTML = this.htmlCurrent;
 
         for (let i = this.indexResult; i < this.stepMax; i++) {
-            const data = this.objData.data[i];
+            const data = this.resultData[i];
             this.htmlCurrent += `
                 <li>
-                    <span class="details-item" data-search-details="${data.id}">${data.surname} ${data.name}</span>
+                    <span class="details-item" data-search-details="${data.id}">
+                    ${data.surname ? data.surname : ''} 
+                    ${data.name ? data.name : ''}
+                    </span>
                 </li>
             `;
         }
@@ -2372,10 +2365,12 @@ class Celebrities {
 
             this.divResultShow.classList.add('show');
 
-            this.divResultCount.innerHTML = this.objData.data.length;
+            this.resultData = this.objData.data;
+
+            this.divResultCount.innerHTML = this.resultData.length;
 
 
-            if (this.objData.data.length > this.stepResult) {
+            if (this.resultData.length > this.stepResult) {
                 this.btnsResult.classList.add('active');
                 this.btnResultPrev.setAttribute('disabled', true);
 
@@ -2383,8 +2378,8 @@ class Celebrities {
             }
             this.htmlCurrent = '';
 
-            for (let i = 0; i < this.objData.data.length; i++) {
-                const data = this.objData.data[i];
+            for (let i = 0; i < this.resultData.length; i++) {
+                const data = this.resultData[i];
 
                 if (i >= this.stepResult) {
                     break;
@@ -2392,9 +2387,9 @@ class Celebrities {
 
                 this.htmlCurrent += `
                     <li>
-                        <span class="details-item" data-search-details="${data.id}">
+                        <span class="details-item" data-search-details="${data.id}">                       
                         ${data.surname ? data.surname : ''} 
-                        ${data.name}
+                        ${data.name ? data.name : ''}
                         </span>
                     </li>
                 `;
@@ -2406,6 +2401,7 @@ class Celebrities {
         }
 
         if (this.currentShow === 'details') {
+
 
             this.detailsResultError.classList.remove('show');
             this.modalDetails.classList.remove('error');
