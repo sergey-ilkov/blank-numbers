@@ -240,7 +240,7 @@ class CelebrityController extends Controller
 
         $celebrity = clearTags($request->celebrity);
 
-        Mail::to('tatyana.blank@gmail.com')->send(new OrderCelebrity($celebrity));
+        Mail::to('albinabeshlyaga@gmail.com')->send(new OrderCelebrity($celebrity));
 
         return response()->json(['status' => 'ok']);
     }
